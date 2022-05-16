@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from "react"
 import "../src/styles.css"
 
-
-
-/**
- * Challenge:
- * 
- * Make it so clicking the Start button starts the timer instead of it starting on refresh
- * (Hint: use a new state variable to indicate if the game should be running or not) 
- */
-
 export default function App() {
 
     const [text, setText] = useState("")
     const [timeRemaining, setTimeRemaining] = useState(10)
-    const [startTimer, setStartTimer] = useState(false)
+    const [isTimeRunning, setIsTimeRunning] = useState(false)
 
     useEffect(()=>{
-        if (startTimer && timeRemaining > 0) {
+        if (isTimeRunning && timeRemaining > 0) {
         setTimeout(()=>{
             setTimeRemaining(prevState => (prevState - 1))
         }, 1000)
-    }}, [timeRemaining])
+    } else if(timeRemaining === 0) {
+        setIsTimeRunning(false)
+    }}, [timeRemaining, isTimeRunning])
 
     function handleChange(e) {
         const {value} = e.target
@@ -29,9 +22,8 @@ export default function App() {
     }
 
     function wordCount(txt)    {
-        setStartTimer(prevState => !prevState)
         console.log("button clicked")
-        console.log(startTimer)
+        console.log(isTimeRunning)
         const wordsArr = txt.trim().split(" ")
         return wordsArr.filter(word => word !== "").length
     }
@@ -45,7 +37,7 @@ export default function App() {
             value={text}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button onClick={()=>{wordCount(text)}}>Start</button>
+            <button onClick={()=> setIsTimeRunning(true)}>Start</button>
             <h1>Word count: ???</h1>
         </div>
     )
