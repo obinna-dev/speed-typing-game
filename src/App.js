@@ -1,13 +1,23 @@
 import React, { useEffect, useState } from "react"
 import "../src/styles.css"
 
+
+
+/**
+ * Challenge:
+ * 
+ * Make it so clicking the Start button starts the timer instead of it starting on refresh
+ * (Hint: use a new state variable to indicate if the game should be running or not) 
+ */
+
 export default function App() {
 
     const [text, setText] = useState("")
     const [timeRemaining, setTimeRemaining] = useState(10)
+    const [startTimer, setStartTimer] = useState(false)
 
     useEffect(()=>{
-        if (timeRemaining > 0) {
+        if (startTimer && timeRemaining > 0) {
         setTimeout(()=>{
             setTimeRemaining(prevState => (prevState - 1))
         }, 1000)
@@ -19,6 +29,9 @@ export default function App() {
     }
 
     function wordCount(txt)    {
+        setStartTimer(prevState => !prevState)
+        console.log("button clicked")
+        console.log(startTimer)
         const wordsArr = txt.trim().split(" ")
         return wordsArr.filter(word => word !== "").length
     }
