@@ -6,6 +6,7 @@ export default function App() {
     const [text, setText] = useState("")
     const [timeRemaining, setTimeRemaining] = useState(10)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
+    const [wordCount, setWordCount] = useState(0)
 
     useEffect(()=>{
         if (isTimeRunning && timeRemaining > 0) {
@@ -13,16 +14,26 @@ export default function App() {
             setTimeRemaining(prevState => (prevState - 1))
         }, 1000)
     } else if(timeRemaining === 0) {
-        setIsTimeRunning(false)
+        endGame()
     }}, [timeRemaining, isTimeRunning])
+
+    function startClock() {
+        setIsTimeRunning(true)
+        setTimeRemaining(10)
+        setText("")
+    }
+
+    function endGame()  {
+        setIsTimeRunning(false)
+        setWordCount(calcWordCount(text))
+    }
 
     function handleChange(e) {
         const {value} = e.target
         setText(value)
     }
 
-    function wordCount(txt)    {
-        console.log("button clicked")
+    function calcWordCount(txt)    {
         console.log(isTimeRunning)
         const wordsArr = txt.trim().split(" ")
         return wordsArr.filter(word => word !== "").length
@@ -37,8 +48,8 @@ export default function App() {
             value={text}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button onClick={()=> setIsTimeRunning(true)}>Start</button>
-            <h1>Word count: ???</h1>
+            <button onClick={startClock}>Start</button>
+            <h1>Word count: {wordCount}</h1>
         </div>
     )
 }
