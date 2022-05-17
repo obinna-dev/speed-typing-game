@@ -2,11 +2,12 @@ import React, { useEffect, useState } from "react"
 import "../src/styles.css"
 
 export default function App() {
-
+    const GAME_TIME = 10
     const [text, setText] = useState("")
-    const [timeRemaining, setTimeRemaining] = useState(10)
+    const [timeRemaining, setTimeRemaining] = useState(GAME_TIME)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
     const [wordCount, setWordCount] = useState(0)
+
 
     useEffect(()=>{
         if (isTimeRunning && timeRemaining > 0) {
@@ -17,9 +18,9 @@ export default function App() {
         endGame()
     }}, [timeRemaining, isTimeRunning])
 
-    function startClock() {
+    function startGame() {
         setIsTimeRunning(true)
-        setTimeRemaining(10)
+        setTimeRemaining(GAME_TIME)
         setText("")
     }
 
@@ -48,7 +49,7 @@ export default function App() {
             value={text}
             />
             <h4>Time remaining: {timeRemaining}</h4>
-            <button onClick={startClock}>Start</button>
+            <button disabled={isTimeRunning} onClick={startGame}>Start</button>
             <h1>Word count: {wordCount}</h1>
         </div>
     )
