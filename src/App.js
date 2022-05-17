@@ -44,8 +44,9 @@ export default function App() {
         <div>
             <h1>How fast do you type</h1>
             <textarea 
+            disabled={!isTimeRunning}
             onChange={handleChange}
-            placeholder="Start Typing"
+            placeholder={!isTimeRunning ? "Press Start to begin" : "Start Typing"}
             value={text}
             />
             <h4>Time remaining: {timeRemaining}</h4>
