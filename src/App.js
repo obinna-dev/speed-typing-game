@@ -12,7 +12,7 @@ export default function App() {
         handleChange,
         timeRemaining,
         startGame
-    } = useGame()
+    } = useGame(30)
     
 
     return (

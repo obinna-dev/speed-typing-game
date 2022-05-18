@@ -1,10 +1,9 @@
 import { useEffect, useRef, useState } from "react"
 
-export default function useGame()   {
+export default function useGame(gameTime = 10)   {
     
-    const GAME_TIME = 10
     const [text, setText] = useState("")
-    const [timeRemaining, setTimeRemaining] = useState(GAME_TIME)
+    const [timeRemaining, setTimeRemaining] = useState(gameTime)
     const [isTimeRunning, setIsTimeRunning] = useState(false)
     const [wordCount, setWordCount] = useState(0)
     const textBoxRef = useRef(null)
@@ -21,7 +20,7 @@ export default function useGame()   {
 
     function startGame() {
         setIsTimeRunning(true)
-        setTimeRemaining(GAME_TIME)
+        setTimeRemaining(gameTime)
         setText("")
         textBoxRef.current.disabled = false
         textBoxRef.current.focus()
