@@ -37,7 +37,6 @@ export default function useGame(gameTime = 10)   {
     }
 
     function calcWordCount(txt)    {
-        console.log(isTimeRunning)
         const wordsArr = txt.trim().split(" ")
         return wordsArr.filter(word => word !== "").length
     }
